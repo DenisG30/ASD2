@@ -103,9 +103,13 @@ class SimpleTree<T>
             throw new IllegalStateException("Use a non root node");
         }
 
+		if (comparisonOfNodes(OriginalNode, NewParent)) {
+        	throw new IllegalStateException("It is not possible to set an ancestor as a descendant of a descendant)");
+    	}
+
         SimpleTreeNode<T> oldParent = OriginalNode.Parent;
 
-        if (oldParent.Children != null) {
+        if (oldParent != null && oldParent.Children != null) {
             oldParent.Children.remove(OriginalNode);
         }
         OriginalNode.Parent = null; 
@@ -195,4 +199,15 @@ class SimpleTree<T>
         }
         return count;
     }
+
+	private boolean comparisonOfNodes(SimpleTreeNode<T> node1, SimpleTreeNode<T> node2) {
+	    if (node1 == null) return false;
+	    if (node1.Children == null) return false;
+	
+	    for (SimpleTreeNode<T> child : node1.Children) {
+	        if (child == node2) return true;
+	        if (comparisonOfNodes(child, node2)) return true;
+	    }
+	    return false;
+	}
 }
