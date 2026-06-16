@@ -91,7 +91,9 @@ class SimpleTree<T>
    }
    
     public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent)
-    {
+    {   
+        
+
         if (OriginalNode == null || NewParent == null) {
             throw new IllegalArgumentException("OriginalNode and NewParent must be not null");
         }
@@ -103,7 +105,14 @@ class SimpleTree<T>
             throw new IllegalStateException("Use a non root node");
         }
 
-		if (comparisonOfNodes(OriginalNode, NewParent)) {
+        if(NewParent.Parent == OriginalNode) {
+            NewParent.Parent = null;
+            OriginalNode.Children.remove(NewParent);
+            AddChild(OriginalNode.Parent,  NewParent);
+        }
+/* 
+        Set<SimpleTreeNode<T>> childsOfOriginalNode = new HashSet<>();
+		if (comparisonOfNodes(OriginalNode, NewParent, childsOfOriginalNode)) {
         	throw new IllegalStateException("It is not possible to set an ancestor as a descendant of a descendant)");
     	}
 
@@ -115,6 +124,9 @@ class SimpleTree<T>
         OriginalNode.Parent = null; 
 
         AddChild(NewParent, OriginalNode);
+*/
+        DeleteNode(OriginalNode);
+        AddChild(NewParent,  OriginalNode);
     }
    
     public int Count()
@@ -199,15 +211,4 @@ class SimpleTree<T>
         }
         return count;
     }
-
-	private boolean comparisonOfNodes(SimpleTreeNode<T> node1, SimpleTreeNode<T> node2) {
-	    if (node1 == null) return false;
-	    if (node1.Children == null) return false;
-	
-	    for (SimpleTreeNode<T> child : node1.Children) {
-	        if (child == node2) return true;
-	        if (comparisonOfNodes(child, node2)) return true;
-	    }
-	    return false;
-	}
 }
