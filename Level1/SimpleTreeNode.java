@@ -110,21 +110,7 @@ class SimpleTree<T>
             OriginalNode.Children.remove(NewParent);
             AddChild(OriginalNode.Parent,  NewParent);
         }
-/* 
-        Set<SimpleTreeNode<T>> childsOfOriginalNode = new HashSet<>();
-		if (comparisonOfNodes(OriginalNode, NewParent, childsOfOriginalNode)) {
-        	throw new IllegalStateException("It is not possible to set an ancestor as a descendant of a descendant)");
-    	}
-
-        SimpleTreeNode<T> oldParent = OriginalNode.Parent;
-
-        if (oldParent != null && oldParent.Children != null) {
-            oldParent.Children.remove(OriginalNode);
-        }
-        OriginalNode.Parent = null; 
-
-        AddChild(NewParent, OriginalNode);
-*/
+		
         DeleteNode(OriginalNode);
         AddChild(NewParent,  OriginalNode);
     }
