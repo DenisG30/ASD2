@@ -19,10 +19,11 @@ public class SimpleTreeNodeTest {
         
         tree.AddChild(tree.Root, child2);
         found = tree.FindNodesByValue("Child2");
-
+    
         assertEquals(1, found.size() );
     }
 
+    
     @Test
     public void testAddChildrenRootFromServer() {
         SimpleTreeNode<Integer> root = new SimpleTreeNode<Integer>(0, null);
@@ -30,6 +31,15 @@ public class SimpleTreeNodeTest {
         SimpleTreeNode<Integer> n1 = new SimpleTreeNode<Integer>(1, root);
         tree.AddChild(root, n1);
 
+        List<SimpleTreeNode<String>> childsOfRoot = new ArrayList<>(tree.Root.Children);
+
+        assertFalse(childsOfRoot.isEmpty());
+        assertTrue(childsOfRoot.contains(n1));
+        assertEquals(1, tree.Root.Children.size());
+        assertEquals(2, tree.Count());   
+    }
+
+    
     @Test
     public void testAddChildrenRoot() {
         SimpleTree<String> tree = new SimpleTree<>(new SimpleTreeNode<>("Root", null));
