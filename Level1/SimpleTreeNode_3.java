@@ -24,6 +24,13 @@ public class SimpleTreeNodeTest {
     }
 
     @Test
+    public void testAddChildrenRootFromServer() {
+        SimpleTreeNode<Integer> root = new SimpleTreeNode<Integer>(0, null);
+        SimpleTree<Integer> tree = new SimpleTree<Integer>(root);
+        SimpleTreeNode<Integer> n1 = new SimpleTreeNode<Integer>(1, root);
+        tree.AddChild(root, n1);
+
+    @Test
     public void testAddChildrenRoot() {
         SimpleTree<String> tree = new SimpleTree<>(new SimpleTreeNode<>("Root", null));
         
