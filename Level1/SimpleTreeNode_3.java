@@ -23,6 +23,45 @@ public class SimpleTreeNodeTest {
         assertEquals(1, found.size() );
     }
 
+    @Test
+    public void testAddChildrenRoot() {
+        SimpleTree<String> tree = new SimpleTree<>(new SimpleTreeNode<>("Root", null));
+        
+        SimpleTreeNode<String> child1 = new SimpleTreeNode<>("3", null);
+        SimpleTreeNode<String> child2 = new SimpleTreeNode<>("4", null);
+        SimpleTreeNode<String> child3 = new SimpleTreeNode<>("5", null);
+        SimpleTreeNode<String> child4 = new SimpleTreeNode<>("3", null);
+        SimpleTreeNode<String> child5 = new SimpleTreeNode<>("4", null);
+        SimpleTreeNode<String> child6 = new SimpleTreeNode<>("4", null);
+
+        tree.AddChild(tree.Root, child1);
+        tree.AddChild(tree.Root, child2);
+        tree.AddChild(child2, child3);
+        tree.AddChild(child2, child4);
+        tree.AddChild(child3, child5);
+        tree.AddChild(child4, child6);
+
+        assertEquals(7, tree.Count() );
+
+        SimpleTreeNode<String> child11 = new SimpleTreeNode<>("Child11", null);
+        
+        tree.AddChild(tree.Root, child11);
+
+        List<SimpleTreeNode<String>> childsOfRoot = new ArrayList<>(tree.Root.Children);
+
+        assertFalse(childsOfRoot.isEmpty());
+
+        assertTrue(childsOfRoot.contains(child11));
+
+        assertFalse(childsOfRoot.contains(child3));
+
+        assertEquals(3, tree.Root.Children.size());
+
+        assertEquals(tree.Root, child11.Parent);
+
+        assertEquals(8, tree.Count());
+    }
+
 
     @Test
     public void testDeleteNode() {
