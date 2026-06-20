@@ -29,7 +29,7 @@ class SimpleTree<T>
             throw new IllegalArgumentException("ParentNode and NewChild must be not null");
         }
 
-        if (NewChild.Parent != null) {
+        if (NewChild.Parent != null && NewChild.Parent != ParentNode) {
             throw new IllegalStateException("Use MoveNode");
         }
 
