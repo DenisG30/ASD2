@@ -239,8 +239,9 @@ class BST<T>
         return result;
     }
 
-    public ArrayList<BSTNode> DeepAllNodes(int order) {
-    ArrayList<BSTNode> result = new ArrayList<>();
+    public ArrayList<BSTNode> DeepAllNodes() {
+        int order; 
+		ArrayList<BSTNode> result = new ArrayList<>();
         if (Root == null) {
             return result;
         }
