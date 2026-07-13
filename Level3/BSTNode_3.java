@@ -1,4 +1,4 @@
-public class sTest {
+public class BSTNodeTest {
         
    @Test
     public void testWideAllNodes_LeftSkewedTree() {
