@@ -39,7 +39,7 @@ class BST<T>
     {
 	  Root = node;
     }
-
+	
     public BSTFind<T> FindNodeByKey(int key)
     {
       BSTFind<T> result = new BSTFind<>();
@@ -51,7 +51,7 @@ class BST<T>
 
       return null;
     }
-
+	
     public boolean AddKeyValue(int key, T val)
     {
       if (Root == null) {
@@ -74,7 +74,7 @@ class BST<T>
       }
       return false; 
     }
-
+	
     public BSTNode<T> FinMinMax(BSTNode<T> FromNode, boolean FindMax)
     {
       if (FromNode != null) {
@@ -82,7 +82,7 @@ class BST<T>
       }
       return null;
     }
-
+	
     public boolean DeleteNodeByKey(int key)
     {
       if (Root == null) {
@@ -117,7 +117,7 @@ class BST<T>
         result.NodeHasKey = true;
         return;
       }
-
+      
       result.Node = node;
 
       if (key < node.NodeKey) {
@@ -139,7 +139,7 @@ class BST<T>
     }
 
     private BSTNode<T> MinRecursive(BSTNode<T> FromNode) {
-
+      
       if (FromNode.LeftChild == null) {
             return FromNode;
       }
@@ -176,7 +176,7 @@ class BST<T>
       } else {
           removeWithChild(nodeToDelete, child);
       }
-
+      
     }
 
     private void removeNoChild(BSTNode<T> node) {
@@ -213,9 +213,10 @@ class BST<T>
     }
     return 1 + countNode(node.LeftChild) + countNode(node.RightChild);
   }
-  
+
+
     public ArrayList<BSTNode> WideAllNodes() {
-        ArrayList<Integer> result = new ArrayList<>();
+        ArrayList<BSTNode> result = new ArrayList<>();
 
         if (Root == null) {
             return result;
@@ -226,7 +227,7 @@ class BST<T>
 
         for (; !queue.isEmpty(); ) {
             BSTNode<T> node = queue.poll();
-            result.add(node.NodeKey);
+            result.add(node);
 
             if (node.LeftChild != null) {
                 queue.add(node.LeftChild);
@@ -239,7 +240,7 @@ class BST<T>
     }
 
     public ArrayList<BSTNode> DeepAllNodes(int order) {
-		ArrayList<BSTNode> result = new ArrayList<>();
+        ArrayList<BSTNode> result = new ArrayList<>();
         if (Root == null) {
             return result;
         }
@@ -287,3 +288,7 @@ class BST<T>
         resultPreOrder(node.RightChild, list);
     }
 }
+
+
+
+
