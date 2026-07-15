@@ -1,16 +1,35 @@
-public class BSTNodeTest {
+public class sTest {
         
    @Test
     public void testWideAllNodes_LeftSkewedTree() {
-         BST<Integer> bst = new BST<>(null);
+        BST<Integer> bst = new BST<>(null);
         bst.AddKeyValue(10, 10);
         bst.AddKeyValue(8, 8);
         bst.AddKeyValue(6, 6);
         bst.AddKeyValue(4, 4);
 
-        List<Integer> path = bst.WideAllNodes();
-        List<Integer> expected = List.of(10, 8, 6, 4);
-        assertEquals(expected, path);
+        ArrayList<BSTNode> nodes = bst.WideAllNodes();
+        assertEquals(4, nodes.size());
+
+        List<Integer> actualKeys = keys(nodes);
+        List<Integer> expectedKeys = List.of(10, 8, 6, 4);
+        assertEquals(expectedKeys, actualKeys);
+    }
+
+    @Test
+    public void testWideAllNodes_RightSkewedTree() {
+        BST<Integer> bst = new BST<>(null);
+        bst.AddKeyValue(1, 1);
+        bst.AddKeyValue(3, 3);
+        bst.AddKeyValue(5, 5);
+        bst.AddKeyValue(7, 7);
+
+        ArrayList<BSTNode> nodes = bst.WideAllNodes();
+        assertEquals(4, nodes.size());
+
+        List<Integer> actualKeys = keys(nodes);
+        List<Integer> expectedKeys = List.of(1, 3, 5, 7);
+        assertEquals(expectedKeys, actualKeys);
     }
 
     @Test
@@ -25,17 +44,21 @@ public class BSTNodeTest {
         bst.AddKeyValue(15, 15);
         bst.AddKeyValue(25, 25);
 
-        List<Integer> path = bst.WideAllNodes();
+        ArrayList<BSTNode> nodes = bst.WideAllNodes();
+        assertEquals(7, nodes.size());
 
-        List<Integer> expected = List.of(10, 5, 20, 3, 7, 15, 25);
-        assertEquals(expected, path);
+        List<Integer> actualKeys = keys(nodes);
+        List<Integer> expectedKeys = List.of(10, 5, 20, 3, 7, 15, 25);
+        assertEquals(expectedKeys, actualKeys);
     }
 
     @Test
     public void testWideAllNodes_EmptyTree() {
         BST<Integer> bst = new BST<>(null);
-        List<Integer> path = bst.WideAllNodes();
-        assertTrue(path.isEmpty());
+        ArrayList<BSTNode> nodes = bst.WideAllNodes();
+
+        assertTrue(nodes.isEmpty());
+        assertEquals(0, nodes.size());
     }
 
     @Test
@@ -43,8 +66,39 @@ public class BSTNodeTest {
         BST<Integer> bst = new BST<>(null);
         bst.AddKeyValue(42, 42);
 
-        List<Integer> path = bst.WideAllNodes();
-        assertEquals(List.of(42), path);
+        ArrayList<BSTNode> nodes = bst.WideAllNodes();
+        assertEquals(1, nodes.size());
+
+        BSTNode node = nodes.get(0);
+        assertNotNull(node);
+
+        assertTrue(Integer.valueOf(42).equals(node.NodeKey));
+    }
+
+
+    @Test
+    public void testWideAllNodes_LeftSkewedTre1e() {
+        BST<Integer> bst = new BST<>(null);
+        bst.AddKeyValue(10, 10);
+        bst.AddKeyValue(8, 8);
+        bst.AddKeyValue(6, 6);
+        bst.AddKeyValue(4, 4);
+
+        ArrayList<BSTNode> nodes = bst.WideAllNodes();
+        assertEquals(4, nodes.size());
+
+        List<Integer> actualKeys = keys(nodes);
+        List<Integer> expectedKeys = List.of(10, 8, 6, 4);
+        assertEquals(expectedKeys, actualKeys);
+    }
+
+    private List<Integer> keys(ArrayList<BSTNode> nodes) {
+        List<Integer> keys = new ArrayList<>();
+        for (BSTNode node : nodes) {
+            assertNotNull(node);
+            keys.add((Integer) node.NodeKey);
+        }
+        return keys;
     }
 
     @Test
@@ -99,7 +153,9 @@ public class BSTNodeTest {
    
         assertTrue(nodes.isEmpty());
     }
+   
 }
+    
 
 
 
