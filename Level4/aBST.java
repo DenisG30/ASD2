@@ -11,7 +11,7 @@ import java.util.*;
           return;
       }
 
-      int tree_size = (1 << depth) - 1;
+      int tree_size = (1 << (depth +1)) - 1;
       Tree = new Integer[ tree_size ];
       for(int i=0; i<tree_size; i++) Tree[i] = null;
     }
