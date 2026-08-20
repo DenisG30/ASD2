@@ -29,29 +29,28 @@ class BalancedBST
 	public void GenerateTree(int[] a) 
 	{  
 		if (a == null || a.length == 0) {
-            Root = null;
-            return;
-        }
-
+        Root = null;
+        return;
+    	}
 		Arrays.sort(a);
-        int n = a.length;
+		Root = buildBalancedBST(a, 0, a.length - 1, null);
+		assignLevels(Root, 0);
+	}
 
-		Queue<int[]> queue = new ArrayDeque<>();
-        queue.offer(new int[]{0, n - 1});
-		Root = null;
+	private BSTNode buildBalancedBST(int[] a, int l, int r, BSTNode parent) {
+		if (l > r) return null;
+		int mid = l + (r - l) / 2;
+		BSTNode node = new BSTNode(a[mid], parent);
+		node.LeftChild = buildBalancedBST(a, l, mid - 1, node);
+		node.RightChild = buildBalancedBST(a, mid + 1, r, node);
+		return node;
+	}
 
-		while (!queue.isEmpty()) {
-            int[] range = queue.poll();
-            int l = range[0];
-            int r = range[1];
-
-            if (l > r) continue;
-
-            int mid = l + (r - l) / 2;
-            int key = a[mid];
-
-            Root = insertIntoBalancedTree(Root, null, key, l, r, a, 0);
-        }
+	private void assignLevels(BSTNode node, int level) {
+		if (node == null) return;
+		node.Level = level;
+		assignLevels(node.LeftChild, level + 1);
+		assignLevels(node.RightChild, level + 1);
 	}
 
 	public boolean IsBalanced(BSTNode root_node) 
@@ -61,30 +60,6 @@ class BalancedBST
 		}
 		return false;
 	}
-
-	private BSTNode insertIntoBalancedTree(BSTNode current, BSTNode parent, int key, int l, int r, int[] a, int level) {
-        int mid = l + (r - l) / 2;
-        int nodeKey = a[mid];
-
-        BSTNode node = new BSTNode(nodeKey, parent);
-		node.Level = level++;
-
-        if (l <= mid - 1) {
-            node.LeftChild = insertIntoBalancedTree(node.LeftChild, node, a[l + (mid - 1 - l) / 2], l, mid - 1, a, level);
-            if (node.LeftChild != null) {
-                node.LeftChild.Parent = node;
-            }
-        }
-
-        if (mid + 1 <= r) {
-            node.RightChild = insertIntoBalancedTree(node.RightChild, node, a[mid + 1 + (r - (mid + 1)) / 2], mid + 1, r, a, level);
-            if (node.RightChild != null) {
-                node.RightChild.Parent = node;
-            }
-        }
-
-        return node;
-    }
 
 	 private int checkLevel(BSTNode node) {
         if (node == null) return 0;
